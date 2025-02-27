@@ -1,7 +1,7 @@
 {
   packageOverrides = pkgs: with pkgs; {
     myPackages = pkgs.buildEnv {
-      name = "mischa-tools";
+      name = "albinlju-packages";
       paths = [
         zsh-completions
         neovim
@@ -11,7 +11,6 @@
         ripgrep
         fzf
         lazygit
-        k9s
       ];
     };
   };
