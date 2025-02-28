@@ -1,3 +1,3 @@
 return {
-  { "akinsho/bufferline.nvim", enable = false },
+  { "akinsho/bufferline.nvim", enabled = false },
 }

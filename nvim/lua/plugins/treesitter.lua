@@ -20,7 +20,7 @@ return {
         "yaml",
         "go",
         "templ",
-        "c_sharp"
+        "c_sharp",
       },
     },
   },
