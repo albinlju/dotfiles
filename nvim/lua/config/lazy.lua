@@ -21,10 +21,9 @@ require("lazy").setup({
 
     -- LazyVim Extras
     { import = "lazyvim.plugins.extras.editor.telescope" },
-    { import = "lazyvim.plugins.extras.editor.prettier" },
-    { import = "lazyvim.plugins.extrax.lang.typescript" },
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
+    { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.ui.mini-starter" },
-
 
     -- import/override with your plugins
     { import = "plugins" },
