@@ -1,10 +1,8 @@
 return {
   {
     "seblj/roslyn.nvim",
-    enabled = false,
+    enabled = true,
     ft = "cs",
-    opts = {
-      exe = "Microsoft.CodeAnalysis.LanguageServer",
-    },
+    opts = {},
   },
 }

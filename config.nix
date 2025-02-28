@@ -11,7 +11,6 @@
         ripgrep
         fzf
         lazygit
-        roslyn-ls
       ];
     };
   };
