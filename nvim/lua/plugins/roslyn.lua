@@ -5,4 +5,9 @@ return {
     ft = "cs",
     opts = {},
   },
+
+  "neovim/nvim-lspconfig",
+  dependencies = {
+    { "williamboman/mason.nvim", confg = true, cmd = "Mason", dependencies = { "roslyn.nvim" } },
+  },
 }

@@ -11,6 +11,7 @@
         ripgrep
         fzf
         lazygit
+        ascii-image-converter
       ];
     };
   };
