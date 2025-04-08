@@ -5,7 +5,6 @@
       paths = [
         zsh-completions
         neovim
-        nodejs_22
         dwt1-shell-color-scripts
         pure-prompt
         fd
