@@ -25,10 +25,10 @@ nix-env -iA nixpkgs.myPackages
 #)
 
 # Iterate over the array and install each package
-for package in "${packages[@]}"; do
-  echo "Installing $package..."
-  /home/linuxbrew/.linuxbrew/bin/brew install "$package"
-done
+#for package in "${packages[@]}"; do
+#  echo "Installing $package..."
+#  /home/linuxbrew/.linuxbrew/bin/brew install "$package"
+#done
 
 echo "All packages have been installed."
 
@@ -41,3 +41,4 @@ touch "$HOME/.privaterc"
 # Set up completions
 
 echo "Setup complete."
+
