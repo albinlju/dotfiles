@@ -8,6 +8,7 @@ mkdir -p "$XDG_CONFIG_HOME"/nixpkgs
 # Create symlinks for existing configurations
 ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
 ln -sf "$PWD/.inputrc" "$HOME"/.inputrc
+ln -sf "$PWD/.bashrc" "$HOME"/.bashrc
 ln -sf "$PWD/.tmux.conf" "$HOME"/.tmux.conf
 ln -sf "$PWD/config.nix" "$XDG_CONFIG_HOME"/nixpkgs/config.nix
 
@@ -41,4 +42,3 @@ touch "$HOME/.privaterc"
 # Set up completions
 
 echo "Setup complete."
-
