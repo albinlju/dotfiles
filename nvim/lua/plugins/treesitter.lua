@@ -25,8 +25,7 @@ return {
         "c_sharp",
       },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+    config = function()
       vim.treesitter.language.register("markdown", "mdx")
     end,
   },
