@@ -1,5 +1,4 @@
 return {
-  -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -16,6 +15,7 @@ return {
         "regex",
         "tsx",
         "typescript",
+        "scss",
         "vim",
         "yaml",
         "go",
@@ -25,16 +25,9 @@ return {
         "c_sharp",
       },
     },
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+      vim.treesitter.language.register("markdown", "mdx")
     end,
   },
 }
