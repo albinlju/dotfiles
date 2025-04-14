@@ -19,6 +19,8 @@ return {
         "vim",
         "yaml",
         "go",
+        "vue",
+        "css",
         "templ",
         "c_sharp",
       },
