@@ -7,6 +7,7 @@
         neovim
         dwt1-shell-color-scripts
         pure-prompt
+        starship
         fd
         ripgrep
         fzf
