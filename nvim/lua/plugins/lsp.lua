@@ -13,6 +13,7 @@ return {
         vtsls = {},
         marksman = {},
         html = {},
+        stylelint_lsp = {},
       },
     },
   },
