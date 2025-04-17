@@ -9,6 +9,7 @@
         pure-prompt
         starship
         nodejs
+        tmux
         fd
         ripgrep
         fzf

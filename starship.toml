@@ -28,7 +28,7 @@ $characher"""
 [container]
 style = 'bold blue'
 symbol = ' 🌿'
-format = '[$symbol Coding]($style) '
+format = '[$symbol coding]($style) '
 
 [fill]
 symbol = ' '

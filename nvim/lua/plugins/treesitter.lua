@@ -13,6 +13,7 @@ return {
         "python",
         "query",
         "regex",
+        "razor",
         "tsx",
         "typescript",
         "scss",
@@ -25,8 +26,5 @@ return {
         "c_sharp",
       },
     },
-    config = function()
-      vim.treesitter.language.register("markdown", "mdx")
-    end,
   },
 }
