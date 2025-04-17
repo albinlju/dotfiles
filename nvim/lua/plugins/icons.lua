@@ -17,6 +17,7 @@ return {
         ["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
       },
       razor = { glyph = "", hl = "MiniIconsPurple" },
+      cshtml = { glyph = "", hl = "MiniIconsBlue" },
       dotenv = { glyph = "", hl = "MiniIconsYellow" },
     },
   },
