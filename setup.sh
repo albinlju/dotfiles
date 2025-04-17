@@ -4,6 +4,7 @@
 export XDG_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p "$XDG_CONFIG_HOME"/nixpkgs
+mkdir -p "$XDG_CONFIG_HOME"/alacritty
 
 # Create symlinks for existing configurations
 ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
@@ -11,32 +12,13 @@ ln -sf "$PWD/starship.toml" "$XDG_CONFIG_HOME"/starship.toml
 ln -sf "$PWD/.inputrc" "$HOME"/.inputrc
 ln -sf "$PWD/.bashrc" "$HOME"/.bashrc
 ln -sf "$PWD/.tmux.conf" "$HOME"/.tmux.conf
+ln -sf "$PWD/alacritty.toml" "$XDG_CONFIG_HOME"/alacritty/alacritty.toml
 ln -sf "$PWD/config.nix" "$XDG_CONFIG_HOME"/nixpkgs/config.nix
 
 # Install Nix packages from config.nix
 nix-env -iA nixpkgs.myPackages
 
-# Nix is broken due to timeouts, falling back to brew
-#packages=(
-#  fd
-#  ripgrep
-#  npm
-#  lazygit
-#  fzf
-#  direnv
-#)
-
-# Iterate over the array and install each package
-#for package in "${packages[@]}"; do
-#  echo "Installing $package..."
-#  /home/linuxbrew/.linuxbrew/bin/brew install "$package"
-#done
-
 echo "All packages have been installed."
-
-# Set up pure prompt
-
-# Silence source warning
 
 touch "$HOME/.privaterc"
 
