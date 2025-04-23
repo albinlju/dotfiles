@@ -4,8 +4,10 @@ return {
     filesystem = {
       filtered_items = {
         visible = true,
+        show_hidden_count = true,
         hide_dotfiles = false,
-        hide_hidden = true,
+        hide_gitignored = true,
+        never_show = {},
       },
     },
   },
