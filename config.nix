@@ -4,7 +4,7 @@
       name = "albinlju-packages";
       paths = [
         zsh-completions
-        (neovim.overrideAttrs (oldAttrs: { version = "0.10.4"; src = oldAttrs.src; }))
+        (pkgs.neovim.override { version = "0.10.4"; })
         dwt1-shell-color-scripts
         pure-prompt
         starship
