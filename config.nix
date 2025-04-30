@@ -10,7 +10,7 @@
             owner = "neovim";
             repo = "neovim";
             rev = "v0.10.4";
-            sha256 = "18kc310q7i4crk2g85day3jadb9l2dbmgirxhn53y4qmm5jk4h8h";
+            sha256 = "sha256-TAuoa5GD50XB4OCHkSwP1oXfedzVrCBRutNxBp/zGLY=";
           };
         })
         dwt1-shell-color-scripts
