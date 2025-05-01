@@ -19,7 +19,7 @@
         pkgs.lazygit
         pkgs.nodejs
         pkgs.dwt1-shell-color-scripts
-        pkgs.dotnet-sdk-9
+        pkgs.dotnet-sdk_9
       ];
       shellHook = ''
         eval "$(starship init bash)" # eller zsh, fish, etc.
