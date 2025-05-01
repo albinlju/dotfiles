@@ -2,7 +2,6 @@
 
 # Set up XDG_CONFIG_HOME
 export XDG_CONFIG_HOME="$HOME"/.config
-export NXF="$HOME"/.config/nix/flakes
 mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p "$XDG_CONFIG_HOME"/alacritty
 mkdir -p "$XDG_CONFIG_HOME"/nix/flakes

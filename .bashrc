@@ -23,7 +23,7 @@ export BROWSER="chrome"
 export REPOS="$HOME/Repos"
 export GITUSER="albinlju"
 export GHREPOS="$REPOS/github.com/$GITUSER"
-export FLAKES="$HOME/.config/nix/flakes"
+export NXF="$HOME/.config/nix/flakes"
 
 # Go related. In general all executables and scripts go in .local/bin
 export GOBIN="$HOME/.local/bin"
