@@ -68,6 +68,17 @@ clone() {
   cd "$name"
 } && export -f clone
 
+# Function to choose/switch nix flake file
+nswitch() {
+  if [ -z "$1" ]; then
+    echo "Usage: nswitch <flake-namn>"
+    ls "$NXF"
+    return 1
+  fi
+  nix develop "$NXF/$1"
+}
+alias ns=nswitch
+
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Moved to starship 20-03-2024 for all my prompt needs.
