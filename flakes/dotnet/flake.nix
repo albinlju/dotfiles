@@ -21,6 +21,9 @@
         pkgs.dwt1-shell-color-scripts
         pkgs.dotnet-sdk-9
       ];
+      shellHook = ''
+        eval "$(starship init bash)" # eller zsh, fish, etc.
+      '';
     };
   };
 }
