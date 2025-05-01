@@ -18,6 +18,7 @@
         pkgs.fzf
         pkgs.lazygit
         pkgs.nodejs
+        pkgs.dwt1-shell-color-scripts
       ];
     };
   };
