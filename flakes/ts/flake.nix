@@ -20,6 +20,9 @@
         pkgs.nodejs
         pkgs.dwt1-shell-color-scripts
       ];
+      shellHook = ''
+        eval "$(starship init bash)" # eller zsh, fish, etc.
+      '';
     };
   };
 }
