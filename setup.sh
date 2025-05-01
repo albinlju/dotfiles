@@ -8,9 +8,7 @@ mkdir -p "$XDG_CONFIG_HOME"/alacritty
 mkdir -p "$XDG_CONFIG_HOME"/nix/flakes
 
 if [ ! -f "$XDG_CONFIG_HOME"/nix/nix.conf ]; then
-  cat <<EOF > "$XDG_CONFIG_HOME"/nix/nix.conf
-  experimental-features = nix-command flakes
-  EOF
+  echo "experimental-features = nix-command flakes" >>"$XDG_CONFIG_HOME"/nix/nix.conf
   echo "Created default ~/.config/nix/nix.conf with experimental features enabled."
 fi
 
