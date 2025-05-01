@@ -4,7 +4,7 @@
 export XDG_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p "$XDG_CONFIG_HOME"/alacritty
-mkdir -p "$XDG_CONFIG_HOME"/nix/flakes
+mkdir -p "$XDG_CONFIG_HOME"/nix
 
 if [ ! -f "$XDG_CONFIG_HOME"/nix/nix.conf ]; then
   echo "experimental-features = nix-command flakes" >>"$XDG_CONFIG_HOME"/nix/nix.conf
