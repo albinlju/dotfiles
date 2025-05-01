@@ -7,6 +7,13 @@ mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p "$XDG_CONFIG_HOME"/alacritty
 mkdir -p "$XDG_CONFIG_HOME"/nix/flakes
 
+if [ ! -f "$XDG_CONFIG_HOME"/nix/nix.conf ]; then
+  cat <<EOF > "$XDG_CONFIG_HOME"/nix/nix.conf
+  experimental-features = nix-command flakes
+  EOF
+  echo "Created default ~/.config/nix/nix.conf with experimental features enabled."
+fi
+
 # Create symlinks for existing configurations
 ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
 ln -sf "$PWD/flakes" "$XDG_CONFIG_HOME"/nix/flakes
