@@ -19,9 +19,9 @@
         pkgs.lazygit
         pkgs.nodejs
         pkgs.dwt1-shell-color-scripts
+        pkgs.asciiquarium
       ];
       shellHook = ''
-        export IN_NIX_DEVELOP=true
         eval "$(starship init bash)"
       '';
     };
