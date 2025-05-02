@@ -21,7 +21,8 @@
         pkgs.dwt1-shell-color-scripts
       ];
       shellHook = ''
-        eval "$(starship init bash)" # eller zsh, fish, etc.
+        export IN_NIX_DEVELOP=true
+        eval "$(starship init bash)"
       '';
     };
   };
