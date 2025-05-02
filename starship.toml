@@ -9,4 +9,7 @@ format = '''
 [└>](bold green) '''
 
 [nix_shell]
-format = '[ $symbol]($style)'
+format = '[ $symbol](bold white)'
+
+[directory]
+format = '[$path](bold green)'
