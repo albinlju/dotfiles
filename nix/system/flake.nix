@@ -20,7 +20,7 @@
             pkgs.ripgrep
             pkgs.fzf
             pkgs.lazygit
-            pgks.dwt1-shell-color-scripts
+            pkgs.dwt1-shell-color-scripts
             pkgs.asciiquarium
           ];
         };
