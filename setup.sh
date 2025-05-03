@@ -20,7 +20,7 @@ ln -sf "$PWD/.tmux.conf" "$HOME"/.tmux.conf
 ln -sf "$PWD/alacritty.toml" "$XDG_CONFIG_HOME"/alacritty/alacritty.toml
 
 # Install system packages to devcontainer with nix profile
-nix profile install github:albinlju/dotfiles-devpod?dir=nix/system
+nix profile install "$PWD/nix/system"
 
 touch "$HOME/.privaterc"
 
