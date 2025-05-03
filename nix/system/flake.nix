@@ -1,23 +1,28 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, ... }:
-  let
-    pkgs = nixpkgs.legacyPackages.aarch64-linux;
-  in
-  {
-    packages.aarch64-linux.default = [
-      pkgs.neovim
-      pkgs.starship
-      pkgs.tmux
-      pkgs.fd
-      pkgs.ripgrep
-      pkgs.fzf
-      pkgs.lazygit
-      pkgs."dwt1-shell-color-scripts"
-      pkgs.asciiquarium
-    ];
-  };
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        defaultPackage = pkgs.buildEnv {
+          name = "system-packages";
+          paths = [ 
+            pkgs.neovim 
+            pkgs.starship
+            pkgs.tmux 
+            pkgs.git
+            pkgs.ripgrep
+            pkgs.fzf
+            pkgs.lazygit
+            pgks.dwt1-shell-color-scripts
+            pkgs.asciiquarium
+          ];
+        };
+      });
 }
