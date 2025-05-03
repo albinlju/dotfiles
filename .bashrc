@@ -23,7 +23,7 @@ export BROWSER="chrome"
 export REPOS="$HOME/Repos"
 export GITUSER="albinlju"
 export GHREPOS="$REPOS/github.com/$GITUSER"
-export NXF="$HOME/.config/nix/flakes"
+export NIXSHELL="$HOME/dotfiles/nix/shells"
 
 # Go related. In general all executables and scripts go in .local/bin
 export GOBIN="$HOME/.local/bin"
@@ -71,11 +71,11 @@ clone() {
 # Function to choose/switch nix flake file
 nswitch() {
   if [ -z "$1" ]; then
-    echo "Usage: nswitch <flake-namn>"
-    ls "$NXF"
+    echo "Usage: nswitch <shell-name>"
+    ls "$NIXSHELL"
     return 1
   fi
-  nix develop "$NXF/$1"
+  nix develop "$NIXSHELL/$1"
 }
 alias ns=nswitch
 
