@@ -10,21 +10,9 @@
   {
     devShells.aarch64-linux.default = pkgs.mkShell {
       buildInputs = [
-        pkgs.neovim
-        pkgs.starship
-        pkgs.tmux
-        pkgs.fd
-        pkgs.ripgrep
-        pkgs.fzf
-        pkgs.lazygit
         pkgs.nodejs
-        pkgs.dwt1-shell-color-scripts
         pkgs.dotnet-sdk_9
-        pkgs.asciiquarium
       ];
-      shellHook = ''
-        eval "$(starship init bash)"
-      '';
     };
   };
 }
