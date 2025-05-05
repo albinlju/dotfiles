@@ -5,10 +5,10 @@
 
   outputs = { nixpkgs, ... }@ inputs:
   let
-    pkgs = nixpkgs.legacyPackages.aarch64-linux;
+    pkgs = nixpkgs.legacyPackages.aarch64-darwin;
   in
   {
-    devShells.aarch64-linux.default = pkgs.mkShell {
+    devShells.aarch64-darwin.default = pkgs.mkShell {
       buildInputs = [
         pkgs.nodejs
       ];

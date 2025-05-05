@@ -2,27 +2,42 @@
 
 # Set up XDG_CONFIG_HOME
 export XDG_CONFIG_HOME="$HOME"/.config
-mkdir -p "$XDG_CONFIG_HOME"
-mkdir -p "$XDG_CONFIG_HOME"/alacritty
-mkdir -p "$XDG_CONFIG_HOME"/nix
 
-if [ ! -f "$XDG_CONFIG_HOME"/nix/nix.conf ]; then
+# Conditionall create folders
+if [ ! -d "$XDG_CONFIG_HOME" ]; then
+  mkdir -p "$XDG_CONFIG_HOME"
+else
+  echo "'$XDG_CONFIG_HOME' alerady exist"
+fi
+
+if [ ! -d "$XDG_CONFIG_HOME"/alacritty ]; then
+  mkdir -p "$XDG_CONFIG_HOME"/alacritty
+else
+  echo "'$XDG_CONFIG_HOME'/alacritty alerady exist"
+fi
+
+if [ ! -d "$XDG_CONFIG_HOME"/nix ]; then
+  mkdir -p "$XDG_CONFIG_HOME"/nix
+else
+  echo "'$XDG_CONFIG_HOME'/nix alerady exist"
+fi
+
+if [ ! -f "$XDG_CONFIG_HOME"/nix ]; then
   echo "experimental-features = nix-command flakes" >>"$XDG_CONFIG_HOME"/nix/nix.conf
   echo "Created default ~/.config/nix/nix.conf with experimental features enabled."
+else
+  echo "nix conf alerady exist"
 fi
 
 # Create symlinks for existing configurations
 ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
 ln -sf "$PWD/starship.toml" "$XDG_CONFIG_HOME"/starship.toml
-ln -sf "$PWD/.inputrc" "$HOME"/.inputrc
 ln -sf "$PWD/.bashrc" "$HOME"/.bashrc
 ln -sf "$PWD/.tmux.conf" "$HOME"/.tmux.conf
 ln -sf "$PWD/alacritty.toml" "$XDG_CONFIG_HOME"/alacritty/alacritty.toml
 
 # Install system packages to devcontainer with nix profile
 nix profile install "$PWD/nix/system"
-
-touch "$HOME/.privaterc"
 
 # Set up completions
 echo "Setup complete."
