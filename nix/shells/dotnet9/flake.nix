@@ -12,7 +12,6 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
-          pkgs.nodejs
           pkgs.dotnet-sdk_9
         ];
     });

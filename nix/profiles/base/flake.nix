@@ -19,6 +19,7 @@
             pkgs.git
             pkgs.ripgrep
             pkgs.fzf
+            pkgs.nodejs
             pkgs.lazygit
             pkgs.dwt1-shell-color-scripts
             pkgs.asciiquarium

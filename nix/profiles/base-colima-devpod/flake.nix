@@ -20,6 +20,7 @@
             pkgs.starship
             pkgs.tmux 
             pkgs.git
+            pkgs.nodejs
             pkgs.ripgrep
             pkgs.fzf
             pkgs.lazygit
