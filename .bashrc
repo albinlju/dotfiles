@@ -81,8 +81,6 @@ alias ns=nswitch
 
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Moved to starship 20-03-2024 for all my prompt needs.
-
 eval "$(starship init bash)"
 
 # ~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,19 +111,6 @@ alias dr='dotnet run'
 #nix
 alias nd='nix develop'
 
-# bash parameter completion for the dotnet CLI
-
-function _dotnet_bash_complete() {
-  local cur="${COMP_WORDS[COMP_CWORD]}" IFS=$'\n' # On Windows you may need to use use IFS=$'\r\n'
-  local candidates
-
-  read -d '' -ra candidates < <(dotnet complete --position "${COMP_POINT}" "${COMP_LINE}" 2>/dev/null)
-
-  read -d '' -ra COMPREPLY < <(compgen -W "${candidates[*]:-}" -- "$cur")
-}
-
-complete -f -F _dotnet_bash_complete dotnet
-
 # git
 alias gp='git pull'
 alias gs='git status'
@@ -142,18 +127,3 @@ source <(devpod completion bash)
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 # search for a file with fzf and open it in vim
 alias vf='v $(fp)'
-
-# sourcing
-source "$HOME/.privaterc"
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  source "$HOME/.fzf.bash"
-  # echo "I'm on Mac!"
-
-  # brew bash completion
-  [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-else
-  #	source /usr/share/fzf/key-bindings.bash
-  #	source /usr/share/fzf/completion.bash
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-fi
