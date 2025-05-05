@@ -24,6 +24,7 @@ export REPOS="$HOME/Repos"
 export GITUSER="albinlju"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export NIXSHELL="$HOME/dotfiles/nix/shells"
+export NIXPROFILES="$HOME/dotfiles/nix/profiles"
 
 # Go related. In general all executables and scripts go in .local/bin
 export GOBIN="$HOME/.local/bin"
@@ -68,17 +69,25 @@ clone() {
   cd "$name"
 } && export -f clone
 
-# Function to choose/switch nix flake file
-nswitch() {
+# Function to choose/switch nix shell file
+nixshell() {
   if [ -z "$1" ]; then
-    echo "Usage: nswitch <shell-name>"
+    echo "Usage: nixshell <shell-name>"
     ls "$NIXSHELL"
     return 1
   fi
   nix develop "$NIXSHELL/$1"
 }
-alias ns=nswitch
-
+nixprofile() {
+  if [ -z "$1" ]; then
+    echo "Usage: nixprofile <profile-name>"
+    ls "$NIXPROFILES"
+    retirn 1
+  fi
+  nix profile install "$NIXPROFILES/$1"
+}
+alias nxs=nixshell
+alias nxp=nixprofile
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
 eval "$(starship init bash)"
