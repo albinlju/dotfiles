@@ -31,4 +31,5 @@ style = "bold blue"
 disabled = false
 
 [os.symbols]
+Macos = "🍏 "
 Ubuntu = ""
