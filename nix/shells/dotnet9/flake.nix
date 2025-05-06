@@ -10,9 +10,10 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.dotnet-sdk_9
         ];
+      };
     });
 }
