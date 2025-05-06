@@ -4,7 +4,7 @@
 add_newline = true
 
 format = '''
-[╭─](bold #444444)$os$container$directory$nix_shell$git_branch$git_status$fill$dotnet$lua$nodejs$go$time
+[╭─](bold #444444)$hostname$os$container$directory$nix_shell$git_branch$git_status$fill$dotnet$lua$nodejs$go$time
 [╰─](bold #444444)$character '''
 
 [nix_shell]
@@ -16,7 +16,7 @@ format = 'in [$path]($style)[$read_only]($read_only_style) '
 style = 'bold #deaf21'
 
 [container]
-format = 'on [$symbol](bold #5287f1)'
+format = '[$symbol](bold #5287f1)'
 symbol = '  '
 
 [git_branch]
@@ -26,6 +26,9 @@ style = 'bold #9344bb'
 disabled = false
 
 [os]
-format = "on [($name )]($style)"
+format = "on [($name $symbol)]($style)"
 style = "bold blue"
 disabled = false
+
+[os.symbols]
+Ubuntu = ""
