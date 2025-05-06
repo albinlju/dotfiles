@@ -4,7 +4,7 @@
 add_newline = true
 
 format = '''
-[╭─](bold #444444)$container$directory$nix_shell$git_branch$git_status$fill$dotnet$lua$nodejs$go$time
+[╭─](bold #444444)$os$container$directory$nix_shell$git_branch$git_status$fill$dotnet$lua$nodejs$go$time
 [╰─](bold #444444)$character '''
 
 [nix_shell]
@@ -23,4 +23,9 @@ symbol = '  '
 style = 'bold #9344bb'
 
 [time]
+disabled = false
+
+[os]
+format = "on [($name )]($style)"
+style = "bold blue"
 disabled = false
