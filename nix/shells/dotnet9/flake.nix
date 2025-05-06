@@ -13,6 +13,7 @@
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.dotnet-sdk_9
+          pkgs.roslyn-ls
         ];
       };
     });
