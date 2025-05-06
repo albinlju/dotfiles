@@ -4,12 +4,23 @@
 add_newline = true
 
 format = '''
-[┌──>](bold purple)$git_branch$git_status$fill$dotnet$lua$nodejs
-[│](bold purple)$nix_shell$directory
-[└>](bold green) '''
+[╭─](bold #444444)$container$directory$nix_shell$git_branch$git_status$fill$dotnet$lua$nodejs$go$time
+[╰─](bold #444444)$character '''
 
 [nix_shell]
-format = '[ $symbol](bold white)'
+format = 'via [$symbol](bold #7EBAE4)'
+symbol = ' '
 
 [directory]
-format = '[$path](bold green)'
+format = 'in [$path]($style)[$read_only]($read_only_style) '
+style = 'bold #deaf21'
+
+[container]
+format = 'on [$symbol](bold #5287f1)'
+symbol = '  '
+
+[git_branch]
+style = 'bold #9344bb'
+
+[time]
+disabled = false
