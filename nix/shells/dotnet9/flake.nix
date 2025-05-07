@@ -14,6 +14,7 @@
         buildInputs = [
           pkgs.dotnet-sdk_9
           pkgs.roslyn-ls
+          pkgs.rzls
         ];
       };
     });
