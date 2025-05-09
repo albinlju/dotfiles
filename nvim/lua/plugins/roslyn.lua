@@ -9,8 +9,8 @@ return {
         config = function()
           require("rzls").setup({
             path = "rzls",
-            --on_attach
-            --capabilities
+            on_attach = require("helpers.lspattach"),
+            capabilities = require("helpers.lspcapabilities"),
           })
         end,
       },
@@ -18,19 +18,22 @@ return {
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     config = function()
-      local rzls_path = vim.fs.joinpath(require("helpers.nix").get_nix_package_path("rzls"), "lib", "rzls")
+      ---@type string[]
+      local cmd = {}
+      local rzls_path = vim.fn.expand("$MASON/packages/rzls/libexec")
+
+      vim.list_extend(cmd, {
+        "roslyn",
+        "--stdio",
+        "--logLevel=Information",
+        "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+        "--razorSourceGenerator=" .. vim.fs.joinpath(rzls_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll"),
+        "--razorDesignTimePath=" .. vim.fs.joinpath(rzls_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),
+      })
 
       require("roslyn").setup({
         config = {
-          cmd = {
-            "Microsoft.CodeAnalysis.LanguageServer",
-            "--stdio",
-            "--logLevel=Information",
-            "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-            "--razorSourceGenerator=" .. vim.fs.joinpath(rzls_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll"),
-            "--razorDesignTimePath="
-              .. vim.fs.joinpath(rzls_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),
-          },
+          cmd = cmd,
           handlers = require("rzls.roslyn_handlers"),
           settings = {
             ["csharp|inlay_hints"] = {
