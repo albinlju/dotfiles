@@ -24,6 +24,7 @@ style = 'bold #9344bb'
 
 [time]
 disabled = false
+utc_time_offset = '2'
 
 [os]
 format = "on [($name $symbol)]($style)"
