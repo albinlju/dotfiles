@@ -88,6 +88,74 @@ nixprofile() {
 }
 alias nxs=nixshell
 alias nxp=nixprofile
+
+NODE_PROXY_SCRIPT="$HOME/dotfiles/proxy.js"
+export NODE_PROXY_PID=""
+start_proxy() {
+  if [ ! -f "$NODE_PROXY_SCRIPT" ]; then
+    echo "Error: Proxy script not found at $NODE_PROXY_SCRIPT"
+    echo "Please ensure the path is correct and the file exists."
+    return 1
+  fi
+
+  if [ -n "$NODE_PROXY_PID" ] && ps -p "$NODE_PROXY_PID" >/dev/null; then
+    echo "Node.js proxy already running with PID: $NODE_PROXY_PID"
+    echo "To restart, first use: stop_proxy"
+    return 1
+  fi
+
+  echo "Starting Node.js proxy..."
+  # Pass all arguments directly to the Node.js script
+  node "$NODE_PROXY_SCRIPT" "$@" &
+  NODE_PROXY_PID=$! # Store the PID of the background process
+
+  # Give the proxy a moment to start and print its initial messages
+  sleep 2
+
+  if ps -p "$NODE_PROXY_PID" >/dev/null; then
+    echo "Node.js proxy started successfully (PID: $NODE_PROXY_PID)."
+    echo "For detailed output, check the terminal where it was launched, or redirect output."
+    echo "Use 'stop_proxy' to stop it."
+  else
+    echo "Failed to start Node.js proxy. Check for errors above."
+    NODE_PROXY_PID="" # Clear PID if start failed
+    return 1
+  fi
+}
+
+stop_proxy() {
+  local target_pid=""
+
+  if [ -n "$1" ]; then
+    target_pid="$1"
+    echo "Attempting to stop Node.js proxy with provided PID: $target_pid"
+  elif [ -z "$NODE_PROXY_PID" ]; then
+    target_pid="$_NODE_PROXY_PID"
+    echo "Attempting to stop Node.js proxy with stored PID: $target_pid"
+    echo "Node.js proxy is not currently running (no PID stored)."
+  else
+    echo "Node.js proxy is not currently running (no PID stored and no PID provided)."
+    return 0
+  fi
+
+  if ps -p "$target_pid" >/dev/null; then
+    echo "Stopping Node.js proxy (PID: $NODE_PROXY_PID)..."
+    kill "$target_pid" 2>/dev/null
+    wait "$target_pid" 2>/dev/null # Wait for it to terminate
+    echo "Node.js proxy stopped."
+  else
+    echo "Node.js proxy (PID: $target_pid) was not found or already stopped."
+  fi
+
+  if [ "$target_pid" = "$NODE_PROXY_PID" ]; then
+    NODE_PROXY_PID=""
+  fi
+}
+
+trap 'stop_proxy' EXIT
+alias stp=start_proxy
+alias sp=stop_proxy
+
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
 eval "$(starship init bash)"
