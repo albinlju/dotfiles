@@ -1,15 +1,13 @@
 return {
   "williamboman/mason.nvim",
-  branch = "v1.x",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
-    branch = "v1.x",
-  },
-  registries = {
-    "github:mason-org/mason-registry",
-    "github:Crashdummyy/mason-registry",
   },
   opts = {
+    registries = {
+      "github:mason-org/mason-registry",
+      "github:Crashdummyy/mason-registry",
+    },
     ensure_installed = {
       "stylua",
       "shfmt",
