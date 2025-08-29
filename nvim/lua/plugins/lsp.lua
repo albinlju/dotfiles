@@ -32,16 +32,30 @@ return {
     {
       "neovim/nvim-lspconfig",
       opts = function(_, opts)
-        table.insert(opts.servers.vtsls.filetypes, "vue")
-        LazyVim.extend(opts.servers.vtsls, "settings.vtsls.tsserver.globalPlugins", {
-          {
-            name = "@vue/typescript-plugin",
-            location = LazyVim.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
-            languages = { "vue" },
-            configNamespace = "typescript",
-            enableForWorkspaceTypeScriptVersions = true,
-          },
-        })
+        if opts.servers.vtsls then
+          table.insert(opts.servers.vtsls.filetypes, "vue")
+          LazyVim.extend(opts.servers.vtsls, "settings.vtsls.tsserver.globalPlugins", {
+            {
+              name = "@vue/typescript-plugin",
+              location = LazyVim.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+              languages = { "vue" },
+              configNamespace = "typescript",
+              enableForWorkspaceTypeScriptVersions = true,
+              settings = {
+                typescript = {
+                  inlayHints = {
+                    parameterNames = { enabled = "none" },
+                    parameterTypes = { enabled = false },
+                    variableTypes = { enabled = false },
+                    propertyDeclarationTypes = { enabled = false },
+                    functionLikeReturnTypes = { enabled = false },
+                    enumMemberValues = { enabled = false },
+                  },
+                },
+              },
+            },
+          })
+        end
       end,
     },
   },
