@@ -1,8 +1,8 @@
 return {
-  { "echasnovski/mini.ai", version = false },
-  { "echasnovski/mini.move", version = false },
+  { "nvim-mini/mini.ai", version = false },
+  { "nvim-mini/mini.move", version = false },
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       extension = {
         file = {
