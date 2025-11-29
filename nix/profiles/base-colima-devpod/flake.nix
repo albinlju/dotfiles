@@ -20,7 +20,6 @@
             pkgs.colima
             pkgs.docker
             pkgs.devpod
-            pkgs.neovim 
             pkgs.starship
             pkgs.tmux 
             pkgs.git
