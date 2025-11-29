@@ -5,7 +5,7 @@
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, neovim-nightly }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -20,6 +20,8 @@
             pkgs.starship
             pkgs.tmux 
             pkgs.git
+            pkgs.dotnet-sdk
+            pkgs.dotnet-sdk_9
             pkgs.ripgrep
             pkgs.fzf
             pkgs.nodejs
