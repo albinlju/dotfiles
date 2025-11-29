@@ -16,6 +16,7 @@
           name = "system-packages";
           paths = [ 
             nightlyPkgs.default
+            pkgs.go
             pkgs.starship
             pkgs.tmux 
             pkgs.git
