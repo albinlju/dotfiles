@@ -22,6 +22,8 @@
             pkgs.devpod
             pkgs.starship
             pkgs.tmux 
+            pkgs.dotnet-sdk
+            pkgs.dotnet-sdk_9
             pkgs.git
             pkgs.nodejs
             pkgs.ripgrep
