@@ -27,11 +27,13 @@ return { -- Autoformat
     end,
     formatters_by_ft = {
       lua = { "stylua" },
-      javascript = { "prettierd", "prettier", "", stop_after_first = true },
-      typescript = { "prettierd", "prettier", "", stop_after_first = true },
-      vue = { "prettierd", "prettier", "", stop_after_first = true },
-      javascriptreact = { "prettierd", "prettier", "", stop_after_first = true },
-      typescriptreact = { "prettierd", "prettier", "", stop_after_first = true },
+      javascript = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+      typescript = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+      vue = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+      javascriptreact = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+      typescriptreact = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+      css = { "prettier", "stylelint" },
+      scss = { "prettier", "stylelint" },
     },
   },
 }
