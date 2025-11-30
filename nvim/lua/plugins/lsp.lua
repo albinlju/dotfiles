@@ -160,24 +160,65 @@ return {
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    --
+    --
+
+    local mason_pkg = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server")
+
+    local vue_ts_plugin = {
+      name = "@vue/typescript-plugin",
+      location = mason_pkg,
+      languages = { "vue" },
+      configNamespace = "typescript",
+    }
+
+    local ts_filetypes = {
+      "typescript",
+      "javascript",
+      "javascriptreact",
+      "typescriptreact",
+      "vue",
+    }
+
     local servers = {
       stylelint_lsp = {},
       eslint = {},
       html = {},
       vtsls = {
+        filetypes = ts_filetypes,
         settings = {
           vtsls = {
             tsserver = {
-              globalPlugins = {
-                name = "@vue/typescript-plugin",
-                location = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server"),
-                languages = { "vue" },
-                configNamespace = "typescript",
-              },
+              globalPlugins = { vue_ts_plugin },
             },
           },
           filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
         },
+      },
+      vue_ls = {
+        on_init = function(client)
+          client.handlers["tsserver/request"] = function(_, result, ctx)
+            local ts_clients = vim.lsp.get_clients({ bufnr = ctx.bufnr, name = "vtsls" })
+            local ts = ts_clients[1]
+
+            if not ts then
+              vim.notify("Volar: no vtsls instance found for TS requests!", vim.log.levels.ERROR)
+              return
+            end
+
+            local id, command, payload = unpack(result[1])
+
+            ts:exec_cmd({
+              title = "vue_request_forward",
+              command = "typescript.tsserverRequest",
+              arguments = { command, payload },
+            }, { bufnr = ctx.bufnr }, function(_, r)
+              local response = r and r.body
+              local response_data = { { id, response } }
+              client:notify("tsserver/response", response_data)
+            end)
+          end
+        end,
       },
       lua_ls = {
         -- cmd = { ... },
