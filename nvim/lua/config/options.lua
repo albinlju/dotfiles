@@ -24,7 +24,7 @@ if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
 	}
 else
 	vim.schedule(function()
-	  vim.o.clipboard = 'unnamedplus'
+		vim.o.clipboard = "unnamedplus"
 	end)
 end
 
@@ -46,9 +46,9 @@ vim.o.breakindent = true
 -- Tabstops
 vim.o.expandtab = true
 vim.o.smartindent = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 
 -- Window splitting
 vim.o.splitright = true
