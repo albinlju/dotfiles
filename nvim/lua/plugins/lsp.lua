@@ -163,63 +163,12 @@ return {
     --
     --
 
-    local mason_pkg = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server")
-
-    local vue_ts_plugin = {
-      name = "@vue/typescript-plugin",
-      location = mason_pkg,
-      languages = { "vue" },
-      configNamespace = "typescript",
-    }
-
-    local ts_filetypes = {
-      "typescript",
-      "javascript",
-      "javascriptreact",
-      "typescriptreact",
-      "vue",
-    }
-
     local servers = {
       stylelint_lsp = {},
       eslint = {},
       html = {},
-      vtsls = {
-        filetypes = ts_filetypes,
-        settings = {
-          vtsls = {
-            tsserver = {
-              globalPlugins = { vue_ts_plugin },
-            },
-          },
-          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-        },
-      },
-      vue_ls = {
-        on_init = function(client)
-          client.handlers["tsserver/request"] = function(_, result, ctx)
-            local ts_clients = vim.lsp.get_clients({ bufnr = ctx.bufnr, name = "vtsls" })
-            local ts = ts_clients[1]
-
-            if not ts then
-              vim.notify("Volar: no vtsls instance found for TS requests!", vim.log.levels.ERROR)
-              return
-            end
-
-            local id, command, payload = unpack(result[1])
-
-            ts:exec_cmd({
-              title = "vue_request_forward",
-              command = "typescript.tsserverRequest",
-              arguments = { command, payload },
-            }, { bufnr = ctx.bufnr }, function(_, r)
-              local response = r and r.body
-              local response_data = { { id, response } }
-              client:notify("tsserver/response", response_data)
-            end)
-          end
-        end,
-      },
+      vtsls = {},
+      vue_ls = {},
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ... },
@@ -270,5 +219,71 @@ return {
         end,
       },
     })
+
+    local mason_pkg = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server")
+
+    local vue_ts_plugin = {
+      name = "@vue/typescript-plugin",
+      location = mason_pkg,
+      languages = { "vue" },
+      configNamespace = "typescript",
+    }
+
+    local ts_filetypes = {
+      "typescript",
+      "javascript",
+      "javascriptreact",
+      "typescriptreact",
+      "vue",
+    }
+
+    local vtsls_config = {
+      settings = {
+        vtsls = {
+          tsserver = {
+            globalPlugins = {
+              vue_ts_plugin,
+            },
+          },
+        },
+      },
+      filetypes = ts_filetypes,
+    }
+
+    local vue_ls_config = {
+      on_init = function(client)
+        client.handlers["tsserver/request"] = function(_, result, context)
+          local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+          if #clients == 0 then
+            vim.notify("Could not find `vtsls` lsp client, `vue_ls` would not work without it.", vim.log.levels.ERROR)
+            return
+          end
+          local ts_client = clients[1]
+
+          local param = unpack(result)
+          local id, command, payload = unpack(param)
+          ts_client:exec_cmd({
+            title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+            command = "typescript.tsserverRequest",
+            arguments = {
+              command,
+              payload,
+            },
+          }, { bufnr = context.bufnr }, function(_, r)
+            local response = r and r.body
+            -- TODO: handle error or response nil here, e.g. logging
+            -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
+            local response_data = { { id, response } }
+
+            ---@diagnostic disable-next-line: param-type-mismatch
+            client:notify("tsserver/response", response_data)
+          end)
+        end
+      end,
+    }
+
+    vim.lsp.config("vtsls", vtsls_config)
+    vim.lsp.config("vue_ls", vue_ls_config)
+    vim.lsp.enable({ "vtsls", "vue_ls" })
   end,
 }
