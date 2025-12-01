@@ -17,6 +17,7 @@
           paths = [ 
             nightlyPkgs.default
             pkgs.go
+            pkgs.wget
             pkgs.starship
             pkgs.tmux 
             pkgs.git
