@@ -32,7 +32,7 @@ return { -- Autocompletion
   --- @type blink.cmp.Config
   opts = {
     keymap = {
-      preset = "super-tab",
+      preset = "enter",
     },
 
     appearance = {
