@@ -19,6 +19,7 @@
             pkgs.go
             pkgs.colima
             pkgs.docker
+            pkgs.wget
             pkgs.devpod
             pkgs.neovim 
             pkgs.starship
