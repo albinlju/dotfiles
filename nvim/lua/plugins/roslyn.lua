@@ -2,8 +2,10 @@ return {
   "seblyng/roslyn.nvim",
   ft = { "cs", "razor" },
   dependencies = {
-    "tris203/rzls.nvim",
-    config = true,
+    {
+      "tris203/rzls.nvim",
+      config = true,
+    },
   },
   ---@module 'roslyn.config'
   ---@type RoslynNvimConfig
@@ -44,5 +46,13 @@ return {
       },
     })
     vim.lsp.enable("roslyn")
+  end,
+  init = function()
+    vim.filetype.add({
+      extension = {
+        razor = "razor",
+        cshtml = "razor",
+      },
+    })
   end,
 }
