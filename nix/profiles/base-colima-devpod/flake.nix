@@ -21,6 +21,7 @@
             pkgs.docker
             pkgs.wget
             pkgs.devpod
+            pkgs.dotnet-sdk_9
             pkgs.neovim 
             pkgs.starship
             pkgs.tmux 
