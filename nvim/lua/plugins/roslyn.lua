@@ -24,6 +24,9 @@ return {
     vim.lsp.config("roslyn", {
       cmd = cmd,
       handlers = require("rzls.roslyn_handlers"),
+      --  capabilities = {
+      --  semanticTokensProvider = vim.NIL, -- Prevent semantic tokens from being negotiated
+      -- },
       settings = {
         ["csharp|inlay_hints"] = {
           csharp_enable_inlay_hints_for_implicit_object_creation = true,

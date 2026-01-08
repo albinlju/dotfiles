@@ -26,13 +26,6 @@ export GHREPOS="$REPOS/github.com/$GITUSER"
 export NIXSHELL="$HOME/dotfiles/nix/shells"
 export NIXPROFILES="$HOME/dotfiles/nix/profiles"
 
-# Go related. In general all executables and scripts go in .local/bin
-export GOBIN="$HOME/.local/bin"
-export GOPATH="$HOME/go/"
-
-# dotnet
-export DOTNET_ROOT="$HOME/dotnet"
-
 # ~~~~~~~~~~~~~~~ Path configuration ~~~~~~~~~~~~~~~~~~~~~~~~
 
 PATH="${PATH:+${PATH}:}$HOME/.local/bin:$HOME/dotnet" # appending
