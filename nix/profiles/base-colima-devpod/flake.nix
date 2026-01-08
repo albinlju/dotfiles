@@ -22,6 +22,7 @@
             pkgs.wget
             pkgs.devpod
             pkgs.dotnetCorePackages.sdk_10_0-bin
+            pkgs.dotnet-ef
             pkgs.neovim 
             pkgs.starship
             pkgs.tmux 
