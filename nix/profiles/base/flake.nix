@@ -14,11 +14,13 @@
       {
         defaultPackage = pkgs.buildEnv {
           name = "system-packages";
-          paths = [ 
+          paths = [
             nightlyPkgs.default
             pkgs.go
             pkgs.wget
             pkgs.starship
+            pkgs.dotnetCorePackages.sdk_10_0-bin
+            pkgs.dotnet-ef
             pkgs.tmux 
             pkgs.git
             pkgs.ripgrep
