@@ -78,6 +78,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         "delve",
+        "coreclr",
       },
     })
 
@@ -104,16 +105,16 @@ return {
     })
 
     -- Change breakpoint icons
-    -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
-    -- vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
-    -- local breakpoint_icons = vim.g.have_nerd_font
-    --     and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-    --   or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
-    -- for type, icon in pairs(breakpoint_icons) do
-    --   local tp = 'Dap' .. type
-    --   local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
-    --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
-    -- end
+    vim.api.nvim_set_hl(0, "DapBreak", { fg = "#e51400" })
+    vim.api.nvim_set_hl(0, "DapStop", { fg = "#ffcc00" })
+    local breakpoint_icons = vim.g.have_nerd_font
+        and { Breakpoint = "", BreakpointCondition = "", BreakpointRejected = "", LogPoint = "", Stopped = "" }
+      or { Breakpoint = "●", BreakpointCondition = "⊜", BreakpointRejected = "⊘", LogPoint = "◆", Stopped = "⭔" }
+    for type, icon in pairs(breakpoint_icons) do
+      local tp = "Dap" .. type
+      local hl = (type == "Stopped") and "DapStop" or "DapBreak"
+      vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+    end
 
     dap.listeners.after.event_initialized["dapui_config"] = dapui.open
     dap.listeners.before.event_terminated["dapui_config"] = dapui.close
@@ -127,5 +128,48 @@ return {
         detached = vim.fn.has("win32") == 0,
       },
     })
+
+    -- C# / .NET debugging
+    dap.adapters.coreclr = {
+      type = "executable",
+      command = vim.fn.exepath("netcoredbg"), -- make sure netcoredbg is in PATH
+      args = { "--interpreter=vscode" },
+    }
+
+    dap.configurations.cs = {
+      {
+        -- Launch a .NET project
+        type = "coreclr",
+        name = "Launch",
+        request = "launch",
+        program = function()
+          local project_path = vim.fs.root(0, function(name)
+            return name:match("%.csproj$") ~= nil
+          end)
+
+          if not project_path then
+            return vim.notify("Couldn't find the csproj path")
+          end
+
+          return require("dap.utils").pick_file({
+            filter = string.format("Debug/.*/%s", vim.fn.fnamemodify(project_path, ":t:r")),
+            path = string.format("%s/bin", project_path),
+          })
+        end,
+      },
+      {
+        type = "coreclr",
+        name = "Attach",
+        request = "attach",
+        processId = function()
+          return require("dap.utils").pick_process({
+            filter = function(proc)
+              ---@diagnostic disable-next-line: return-type-mismatch
+              return proc.name:match(".*/Debug/.*") and not proc.name:find("vstest.console.dll")
+            end,
+          })
+        end,
+      },
+    }
   end,
 }
