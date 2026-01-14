@@ -21,6 +21,7 @@
             pkgs.starship
             pkgs.dotnetCorePackages.sdk_10_0-bin
             pkgs.dotnet-ef
+            pkgs.netcoredbg
             pkgs.tmux 
             pkgs.git
             pkgs.ripgrep
