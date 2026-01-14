@@ -64,6 +64,8 @@ return {
     local dap = require("dap")
     local dapui = require("dapui")
 
+    dap.set_log_level("DEBUG")
+
     require("mason-nvim-dap").setup({
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -132,7 +134,7 @@ return {
     -- C# / .NET debugging
     dap.adapters.coreclr = {
       type = "executable",
-      command = vim.fn.exepath("netcoredbg"), -- make sure netcoredbg is in PATH
+      command = require("helpers.path").get_nix_profile_binary_path("netcoredbg"),
       args = { "--interpreter=vscode" },
     }
 
@@ -148,13 +150,32 @@ return {
           end)
 
           if not project_path then
-            return vim.notify("Couldn't find the csproj path")
+            vim.notify("Couldn't find the csproj path")
+            return nil
           end
 
-          return require("dap.utils").pick_file({
-            filter = string.format("Debug/.*/%s", vim.fn.fnamemodify(project_path, ":t:r")),
-            path = string.format("%s/bin", project_path),
-          })
+          local project_name = vim.fn.fnamemodify(project_path, ":t:r")
+
+          -- Automatically find the DLL matching the project name
+          local dlls = vim.fs.find(function(name)
+            return name:match(project_name .. "%.dll$")
+          end, { path = vim.fs.joinpath(project_path, "bin/Debug"), type = "file", limit = 5 })
+
+          if #dlls == 0 then
+            vim.notify("No DLL found for project " .. project_name)
+            return nil
+          elseif #dlls == 1 then
+            vim.notify("Using DLL: " .. dlls[1])
+            return dlls[1]
+          else
+            -- If more than one DLL matches, let the user pick
+            return require("dap.utils").pick_file({
+              path = vim.fs.joinpath(project_path, "bin/Debug"),
+              filter = function(file)
+                return file:match(project_name .. "%.dll$")
+              end,
+            })
+          end
         end,
       },
       {
