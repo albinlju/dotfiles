@@ -1,0 +1,42 @@
+services:
+  # This is your primary Dev Container
+  app:
+    build:
+      context: . # Build context is the folder where Dockerfile.devcontainer lives
+      dockerfile: ./Dockerfile # Points to the Dockerfile in .devcontainer
+
+    command: tail -f /dev/null
+    ports:
+      - "8080:80" # Example: Map host port 8080 to container's port 80 (for web apps)
+      # You *do not* need to map 1433 here, as the SQL Server is a separate service.
+      # The 'app' container connects to 'sqlserver' via the Docker network.
+    environment:
+      # Example connection string for a .NET application to connect to the 'sqlserver' service
+      - DATABASE_CONNECTION_STRING=Server=sqlserver;Database=sqldatabase;User Id=sa;Password=VeryStrongPassword!;TrustServerCertificate=True;MultipleActiveResultSets=True
+      # You can add other generic environment variables here for your application
+    #volumes:
+      # This mounts the *actual application repository* into the container.
+      # DevPod usually handles this, so "." might resolve to the cloned repo root on the host.
+      # Adjust this path based on how DevPod structures your workspace when cloning.
+      # If you are cloning your app repo to, e.g., `/tmp/my-app`, then this path would be `/tmp/my-app:/workspace`
+      # but typically, `.` or a DevPod specific variable will work as DevPod manages the mount.
+      #- .:/workspace:cached
+    depends_on:
+      - sqlserver # Ensures SQL Server starts before your app container
+
+  # The SQL Server database service
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest # Or 2022-latest for newer features
+    platform: linux/amd64
+    ports:
+      - "1433:1433" # Map host port 1433 to container's port 1433 for external tools (SSMS, Azure Data Studio)
+    environment:
+      SA_PASSWORD: "VeryStrongPassword!" # **CRITICAL: CHANGE THIS STRONG PASSWORD!**
+      ACCEPT_EULA: "Y" # Required to accept the SQL Server license agreement
+      MSSQL_PID: "Developer" # Use 'Developer' for development/testing, it's free.
+    volumes:
+      # Use an anonymous volume to ensure data is ephemeral and removed with `devpod down`
+      - sqlserver_data:/var/opt/mssql # Persistent *for the life of the container stack*
+                                       # but cleared on `devpod down`
+volumes:
+  sqlserver_data: {} # Defines the anonymous volume

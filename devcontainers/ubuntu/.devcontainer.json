@@ -1,0 +1,21 @@
+{
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/nix:1": {},
+    "ghcr.io/devcontainer-community/devcontainer-features/starship.rs:1": {}
+  },
+  "forwardPorts": [
+    6006,
+    8080
+  ],
+  "portsAttributes": {
+    "6006": {
+      "label": "Application",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Another Application",
+      "onAutoForward": "silent"
+    }
+  }
+}
