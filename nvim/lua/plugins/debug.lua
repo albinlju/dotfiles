@@ -144,6 +144,9 @@ return {
         type = "coreclr",
         name = "Launch",
         request = "launch",
+        env = {
+          ASPNETCORE_URLS = "http://localhost:6006;",
+        },
         program = function()
           local project_path = vim.fs.root(0, function(name)
             return name:match("%.csproj$") ~= nil
