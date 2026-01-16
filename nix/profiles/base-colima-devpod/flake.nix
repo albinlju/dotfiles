@@ -16,22 +16,11 @@
           name = "system-packages";
           paths = [
             nightlyPkgs.default 
-            pkgs.go
             pkgs.colima
             pkgs.docker
-            pkgs.wget
             pkgs.devpod
-            pkgs.dotnetCorePackages.sdk_10_0-bin
-            pkgs.dotnet-ef
             pkgs.neovim 
             pkgs.starship
-            pkgs.tmux 
-            pkgs.git
-            pkgs.nodejs
-            pkgs.ripgrep
-            pkgs.fzf
-            pkgs.lazygit
-            pkgs.dwt1-shell-color-scripts
             pkgs.asciiquarium
           ];
         };
