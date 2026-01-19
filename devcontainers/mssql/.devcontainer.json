@@ -6,12 +6,15 @@
     "ghcr.io/devcontainers/features/nix:1": {},
     "ghcr.io/devcontainer-community/devcontainer-features/starship.rs:1": {}
   },
+  "workspaceFolder":"/Repos",
+  "workspaceMount":"source=${localWorkspaceFolder},target=/Repos,type=bind",
 	"remoteUser": "vscode",
   "shutdownAction": "stopCompose",
   "forwardPorts": [
     8080,
     1433,
     6006,
-    5173
+    5173,
+    5000
   ]
 }

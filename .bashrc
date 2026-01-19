@@ -145,6 +145,42 @@ stop_proxy() {
   fi
 }
 
+devpod-up() {
+  local type="$1"
+  local id="$2"
+  local path=""
+
+  if [[ -z "$type" || -z "$id" ]]; then
+    echo "Usage: devpod-up <type: ubuntu|mssql> <id>"
+    return 1
+  fi
+
+  case "$type" in
+    ubuntu)
+      path="$HOME/dotfiles/devcontainers/ubuntu/.devcontainer.json"
+      ;;
+    mssql)
+      path="$HOME/dotfiles/devcontainers/mssql/.devcontainer.json"
+      ;;
+    *)
+      echo "Error: Unknown type '$type'. Available types: ubuntu, mssql"
+      return 1
+      ;;
+  esac
+
+  # devpod requires relative path to cwd
+  local rel_path
+  if command -v python3 &>/dev/null; then
+      rel_path=$(python3 -c "import os.path; print(os.path.relpath('$path', '.'))")
+  else
+      echo "Error: python3 is required for relative path calculation"
+      return 1
+  fi
+
+  devpod up . --devcontainer-path "$rel_path" --dotfiles https://github.com/albinlju/dotfiles.git --id "$id" --ide none --debug
+}
+
+
 trap 'stop_proxy' EXIT
 alias stp=start_proxy
 alias sp=stop_proxy
