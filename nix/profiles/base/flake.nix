@@ -18,6 +18,7 @@
             nightlyPkgs.default
             pkgs.go
             pkgs.opencode
+            pkgs.xdg-utils
             pkgs.wget
             pkgs.starship
             pkgs.dotnetCorePackages.sdk_10_0-bin
