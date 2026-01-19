@@ -16,6 +16,12 @@ else
   echo "$XDG_CONFIG_HOME/alacritty alerady exist"
 fi
 
+if [ ! -d "$XDG_CONFIG_HOME"/opencode ]; then
+  mkdir -p "$XDG_CONFIG_HOME"/opencode
+else
+  echo "$XDG_CONFIG_HOME/opencode alerady exist"
+fi
+
 if [ ! -d "$XDG_CONFIG_HOME"/nix ]; then
   mkdir -p "$XDG_CONFIG_HOME"/nix
 else
@@ -36,6 +42,7 @@ ln -sf "$PWD/.bashrc" "$HOME"/.bashrc
 ln -sf "$PWD/.bash_profile" "$HOME"/.bash_profile
 ln -sf "$PWD/.tmux.conf" "$HOME"/.tmux.conf
 ln -sf "$PWD/alacritty.toml" "$XDG_CONFIG_HOME"/alacritty/alacritty.toml
+ln -sf "$PWD/opencode.json" "$XDG_CONFIG_HOME"/opencode/opencode.json
 
 # Install system packages to devcontainer with nix profile
 if [[ "$OSTYPE" == "linux"* ]]; then
