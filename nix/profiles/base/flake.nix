@@ -24,6 +24,7 @@
             pkgs.dotnetCorePackages.sdk_10_0-bin
             pkgs.dotnet-ef
             pkgs.netcoredbg
+            pkgs.http-server
             pkgs.tmux 
             pkgs.git
             pkgs.ripgrep
