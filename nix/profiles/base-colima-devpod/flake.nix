@@ -18,6 +18,8 @@
             nightlyPkgs.default 
             pkgs.colima
             pkgs.docker
+            pkgs.git
+            pkgs.lazygit
             pkgs.devpod
             pkgs.neovim 
             pkgs.starship
