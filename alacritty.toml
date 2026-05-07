@@ -6,3 +6,6 @@ normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 bindings = [
   { key = "N", mods = "Control|Shift", action = "CreateNewWindow" }
 ]
+
+[window]
+dynamic_title = true

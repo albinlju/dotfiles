@@ -18,6 +18,7 @@
             nightlyPkgs.default 
             pkgs.colima
             pkgs.docker
+            pkgs.rustup
             pkgs.git
             pkgs.lazygit
             pkgs.devpod
