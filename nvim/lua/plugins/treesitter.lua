@@ -12,6 +12,7 @@ return { -- Highlight, edit, and navigate code
       "diff",
       "json",
       "razor",
+      "rust",
       "scss",
       "yaml",
       "c_sharp",

@@ -159,6 +159,7 @@ return {
       stylelint_lsp = {},
       eslint = {},
       html = {},
+      rust_analyzer = {},
       gopls = {
         settings = {
           gopls = {
