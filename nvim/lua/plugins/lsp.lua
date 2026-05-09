@@ -153,13 +153,16 @@ return {
       },
     })
 
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    vim.lsp.config("*", {
+      capabilities = require("blink.cmp").get_lsp_capabilities(),
+    })
+
+    local mason_pkg = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server")
 
     local servers = {
       stylelint_lsp = {},
       eslint = {},
       html = {},
-      rust_analyzer = {},
       gopls = {
         settings = {
           gopls = {
@@ -197,7 +200,23 @@ return {
           },
         },
       },
-      vtsls = {},
+      vtsls = {
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = "@vue/typescript-plugin",
+                  location = mason_pkg,
+                  languages = { "vue" },
+                  configNamespace = "typescript",
+                },
+              },
+            },
+          },
+        },
+      },
       vue_ls = {},
       lua_ls = {
         settings = {
@@ -210,7 +229,11 @@ return {
       },
     }
 
-    local ensure_installed = vim.tbl_keys(servers or {})
+    for name, opts in pairs(servers) do
+      vim.lsp.config(name, opts)
+    end
+
+    local ensure_installed = vim.tbl_keys(servers)
     vim.list_extend(ensure_installed, {
       "stylua",
       "stylelint",
@@ -220,48 +243,7 @@ return {
 
     require("mason-lspconfig").setup({
       ensure_installed = {},
-      automatic_installation = false,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
-        end,
-      },
+      automatic_enable = true,
     })
-
-    local mason_pkg = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "vue-language-server", "node_modules", "@vue", "language-server")
-
-    local vue_ts_plugin = {
-      name = "@vue/typescript-plugin",
-      location = mason_pkg,
-      languages = { "vue" },
-      configNamespace = "typescript",
-    }
-
-    local ts_filetypes = {
-      "typescript",
-      "javascript",
-      "javascriptreact",
-      "typescriptreact",
-      "vue",
-    }
-
-    local vtsls_config = {
-      settings = {
-        vtsls = {
-          tsserver = {
-            globalPlugins = {
-              vue_ts_plugin,
-            },
-          },
-        },
-      },
-      filetypes = ts_filetypes,
-    }
-
-    vim.lsp.config("vtsls", vtsls_config)
-    vim.lsp.config("vue_ls", {})
-    vim.lsp.enable({ "vtsls", "vue_ls" })
   end,
 }
