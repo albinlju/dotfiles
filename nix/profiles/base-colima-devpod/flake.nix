@@ -18,6 +18,7 @@
             pkgs.rustup
             pkgs.git
             pkgs.lazygit
+            pkgs.dwt1-shell-color-scripts
             pkgs.devpod
             pkgs.neovim 
             pkgs.starship
