@@ -25,6 +25,7 @@
             pkgs.dotnet-ef
             pkgs.rustup
             pkgs.netcoredbg
+            pkgs.gh
             pkgs.http-server
             pkgs.tmux 
             pkgs.git

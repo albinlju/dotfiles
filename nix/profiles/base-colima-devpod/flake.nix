@@ -18,6 +18,7 @@
             pkgs.rustup
             pkgs.git
             pkgs.lazygit
+            pkgs.gh
             pkgs.ripgrep
             pkgs.dwt1-shell-color-scripts
             pkgs.devpod
