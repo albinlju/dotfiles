@@ -23,6 +23,7 @@
             pkgs.starship
             pkgs.dotnetCorePackages.sdk_10_0-bin
             pkgs.dotnet-ef
+            pkgs.rustup
             pkgs.netcoredbg
             pkgs.http-server
             pkgs.tmux 
