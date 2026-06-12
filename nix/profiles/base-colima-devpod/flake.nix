@@ -18,8 +18,10 @@
             pkgs.rustup
             pkgs.git
             pkgs.lazygit
-            pkgs.gh
+            pkgs.nodejs
+            pkgs.http-server
             pkgs.ripgrep
+            pkgs.gh
             pkgs.dwt1-shell-color-scripts
             pkgs.devpod
             pkgs.neovim 
