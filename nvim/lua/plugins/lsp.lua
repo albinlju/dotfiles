@@ -162,6 +162,7 @@ return {
     local servers = {
       stylelint_lsp = {},
       eslint = {},
+      oxlint = {},
       html = {},
       gopls = {
         settings = {

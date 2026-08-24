@@ -18,6 +18,8 @@
             pkgs.rustup
             pkgs.git
             pkgs.lazygit
+            pkgs.dotnetCorePackages.sdk_10_0-bin
+            pkgs.dotnet-ef
             pkgs.nodejs
             pkgs.http-server
             pkgs.ripgrep
