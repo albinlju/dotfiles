@@ -3,6 +3,14 @@ return {
   ---@module 'roslyn.config'
   ---@type RoslynNvimConfig
   config = function()
+    local dotnet = vim.fn.exepath("dotnet")
+
+    if dotnet ~= "" then
+      local dotnet_root = vim.fn.fnamemodify(vim.fn.resolve(dotnet), ":h")
+
+      vim.env.DOTNET_ROOT = dotnet_root
+      vim.env.DOTNET_ROOT_ARM64 = dotnet_root
+    end
     vim.lsp.config("roslyn", {
       settings = {
         ["csharp|inlay_hints"] = {
