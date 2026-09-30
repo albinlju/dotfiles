@@ -222,6 +222,9 @@ alias gp='git pull'
 alias gs='git status'
 alias lg='lazygit'
 
+# pr
+alias sl='slussa'
+
 # fun
 alias fishies=asciiquarium
 
